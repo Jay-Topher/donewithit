@@ -1,19 +1,30 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View, SafeAreaView } from "react-native";
-import AppButton from "./app/components/AppButton";
+import AppPicker from "./app/components/AppPicker";
 import AppText from "./app/components/AppText";
-import Card from "./app/components/Card";
-import Icon from "./app/components/Icon";
+import AppTextInput from "./app/components/AppTextInput";
 import Screen from "./app/components/Screen";
-import AccountScreen from "./app/screens/AccountScreen";
-import ImageView from "./app/screens/ImageView";
-import ListingDetailsScreen from "./app/screens/ListingDetailsScreen";
-import MessagesScreen from "./app/screens/MessagesScreen";
-import StartScreen from "./app/screens/StartScreen";
 
+const categories = [
+  { label: "Furniture", value: 1 },
+  { label: "Clothes", value: 2 },
+  { label: "Food", value: 3 },
+];
 export default function App() {
-  return <AccountScreen />;
+  const [category, setCategory] = useState(null);
+  return (
+    <Screen>
+      <AppTextInput icon="email" placeholder="Email" />
+      <AppPicker
+        placeholder="Category"
+        icon="apps"
+        items={categories}
+        selectedItem={category}
+        onSelectItem={setCategory}
+      />
+    </Screen>
+  );
 }
 
 const styles = StyleSheet.create({
