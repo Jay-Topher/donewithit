@@ -1,30 +1,10 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
-import { StyleSheet, Text, View, SafeAreaView } from "react-native";
-import AppPicker from "./app/components/AppPicker";
-import AppText from "./app/components/AppText";
-import AppTextInput from "./app/components/AppTextInput";
-import Screen from "./app/components/Screen";
+import React from "react";
+import { StyleSheet } from "react-native";
+import ListingEditScreen from "./app/screens/ListingEditScreen";
 
-const categories = [
-  { label: "Furniture", value: 1 },
-  { label: "Clothes", value: 2 },
-  { label: "Food", value: 3 },
-];
 export default function App() {
-  const [category, setCategory] = useState(null);
-  return (
-    <Screen>
-      <AppTextInput icon="email" placeholder="Email" />
-      <AppPicker
-        placeholder="Category"
-        icon="apps"
-        items={categories}
-        selectedItem={category}
-        onSelectItem={setCategory}
-      />
-    </Screen>
-  );
+  return <ListingEditScreen />;
 }
 
 const styles = StyleSheet.create({
