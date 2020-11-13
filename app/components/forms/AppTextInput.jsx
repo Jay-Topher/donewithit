@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: "row",
     backgroundColor: colors.light,
-    height: 40,
+    minHeight: 40,
     alignItems: "center",
     paddingHorizontal: 15,
     borderRadius: 20,
