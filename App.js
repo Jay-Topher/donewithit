@@ -1,22 +1,31 @@
-import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet } from "react-native";
-import ListingEditScreen from "./app/screens/ListingEditScreen";
+
+import Screen from "./app/components/Screen";
+import ImageInput from "./app/components/forms/ImageInput";
+import ImageInputList from "./app/components/ImageInputList";
 
 export default function App() {
-  return <ListingEditScreen />;
+  const [imageUris, setImageUris] = useState([]);
+
+  const handleAdd = (uri) => setImageUris([...imageUris, uri]);
+  const handleRemove = (uri) => {
+    setImageUris(imageUris.filter((imageUri) => imageUri !== uri));
+  };
+
+  return (
+    <Screen style={styles.container}>
+      <ImageInputList
+        imageUris={imageUris}
+        onAddImage={handleAdd}
+        onRemoveImage={handleRemove}
+      />
+    </Screen>
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  test: {
-    backgroundColor: "#f8f4f4",
-    padding: 20,
-    paddingTop: 100,
+    flexDirection: "row",
   },
 });
