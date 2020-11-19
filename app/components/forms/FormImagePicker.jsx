@@ -17,7 +17,7 @@ const FormImagePicker = ({ name }) => {
   return (
     <>
       <ImageInputList
-        imageUri={imageUris}
+        imageUris={imageUris}
         onAddImage={handleAdd}
         onRemoveImage={handleRemove}
       />
