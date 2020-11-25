@@ -1,14 +1,12 @@
-import React, { useState } from "react";
-import { StyleSheet } from "react-native";
-
-import ListingEditScreen from "./app/screens/ListingEditScreen";
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import myTheme from "./app/navigation/navigationTheme";
+import AppTabNavigator from "./app/navigation/AppNavigator";
 
 export default function App() {
-  return <ListingEditScreen />;
+  return (
+    <NavigationContainer theme={myTheme}>
+      <AppTabNavigator />
+    </NavigationContainer>
+  );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-  },
-});
