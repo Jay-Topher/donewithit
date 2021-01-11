@@ -1,7 +1,7 @@
 import { useFormikContext } from "formik";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { ErrorMessage } from ".";
+import { StyleSheet } from "react-native";
+import { ErrorMessage } from "./ErrorMessage";
 import AppPicker from "../AppPicker";
 
 const AppFormPicker = ({
