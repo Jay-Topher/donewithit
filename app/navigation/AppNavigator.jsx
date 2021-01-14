@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import * as Notifications from "expo-notifications";
 
 import ListingEditScreen from "../screens/ListingEditScreen";
 import FeedStackNavigator from "./FeedNavigator";
@@ -10,45 +11,61 @@ import routes from "./routes";
 
 const Tab = createBottomTabNavigator();
 
-const AppTabNavigator = () => (
-  <Tab.Navigator>
-    <Tab.Screen
-      name={routes.FEED}
-      component={FeedStackNavigator}
-      options={{
-        tabBarIcon: ({ color, size }) => (
-          <MaterialCommunityIcons name="home" color={color} size={size} />
-        ),
-      }}
-    />
-    <Tab.Screen
-      name={routes.LISTING_EDIT}
-      component={ListingEditScreen}
-      options={({ navigation }) => ({
-        tabBarButton: () => (
-          <NewListingButton
-            onPress={() => navigation.navigate(routes.LISTING_EDIT)}
-          />
-        ),
-        tabBarIcon: ({ color, size }) => (
-          <MaterialCommunityIcons
-            name="plus-circle"
-            color={color}
-            size={size}
-          />
-        ),
-      })}
-    />
-    <Tab.Screen
-      name={routes.ACCOUNTS}
-      component={AccountStackNavigator}
-      options={{
-        tabBarIcon: ({ color, size }) => (
-          <MaterialCommunityIcons name="account" color={color} size={size} />
-        ),
-      }}
-    />
-  </Tab.Navigator>
-);
+const AppTabNavigator = () => {
+  const registerForPushNotifications = async () => {
+    try {
+      const permission = await Notifications.requestPermissionsAsync();
+      if (!permission.granted) return;
+      const token = await Notifications.getExpoPushTokenAsync();
+      console.log(token);
+    } catch (error) {
+      console.log("Error getting token", error);
+    }
+  };
+
+  useEffect(() => {
+    registerForPushNotifications();
+  }, []);
+  return (
+    <Tab.Navigator>
+      <Tab.Screen
+        name={routes.FEED}
+        component={FeedStackNavigator}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="home" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={routes.LISTING_EDIT}
+        component={ListingEditScreen}
+        options={({ navigation }) => ({
+          tabBarButton: () => (
+            <NewListingButton
+              onPress={() => navigation.navigate(routes.LISTING_EDIT)}
+            />
+          ),
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons
+              name="plus-circle"
+              color={color}
+              size={size}
+            />
+          ),
+        })}
+      />
+      <Tab.Screen
+        name={routes.ACCOUNTS}
+        component={AccountStackNavigator}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="account" color={color} size={size} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+};
 
 export default AppTabNavigator;
